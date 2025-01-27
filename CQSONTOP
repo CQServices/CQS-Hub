@@ -1,0 +1,196 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+    local Window = Rayfield:CreateWindow({
+   Name = "CQS Gunfight Arena",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "CQS Hub",
+   LoadingSubtitle = "Powered By AI",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "CQS Gunfight"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "TwtwrAq4AH", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "CQS Key",
+      Subtitle = "Link in Discord",
+      Note = "Join Server Discord", -- Use this to tell the user how to get a key
+      FileName = "CQS Hub Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/XLb86SkG"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("Main", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "You executed CQS Hub",
+   Content = "Have fun, enjoy",
+   Duration = 6.5,
+   Image = nil,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "ESP",
+   Callback = function()
+        pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua'))() end)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Extended Hitbox",
+   Callback = function()
+_G.HeadSize = 50
+_G.Disabled = true
+ 
+game:GetService('RunService').RenderStepped:connect(function()
+if _G.Disabled then
+for i,v in next, game:GetService('Players'):GetPlayers() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+v.Character.HumanoidRootPart.Transparency = 0.7
+v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+v.Character.HumanoidRootPart.Material = "Neon"
+v.Character.HumanoidRootPart.CanCollide = false
+end)
+end
+end
+end
+end)
+   end,
+})
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Infinite Jump",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Infinite%20Jump.txt"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Aimbot (laggy)",
+   Callback = function()
+       --FE Simple AimLock Script | Released Nov 2021 | Working.
+local Area = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local MyCharacter = LocalPlayer.Character
+local MyRoot = MyCharacter:FindFirstChild("HumanoidRootPart")
+local MyHumanoid = MyCharacter:FindFirstChild("Humanoid")
+local Mouse = LocalPlayer:GetMouse()
+local MyView = Area.CurrentCamera
+local MyTeamColor = LocalPlayer.TeamColor
+local HoldingM2 = false
+local Active = false
+local Lock = false
+local Epitaph = .187 ---Note: The Bigger The Number, The More Prediction.
+local HeadOffset = Vector3.new(0, .1, 0)
+
+_G.TeamCheck = false
+_G.AimPart = "HumanoidRootPart"
+_G.Sensitivity = 0
+_G.CircleSides = 64
+_G.CircleColor = Color3.fromRGB(255, 0, 130)
+_G.CircleTransparency = 0
+_G.CircleRadius = 100
+_G.CircleFilled = false
+_G.CircleVisible = true
+_G.CircleThickness = 1
+
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Position = Vector2.new(MyView.ViewportSize.X / 2, MyView.ViewportSize.Y / 2)
+FOVCircle.Radius = _G.CircleRadius
+FOVCircle.Filled = _G.CircleFilled
+FOVCircle.Color = _G.CircleColor
+FOVCircle.Visible = _G.CircleVisible
+FOVCircle.Transparency = _G.CircleTransparency
+FOVCircle.NumSides = _G.CircleSides
+FOVCircle.Thickness = _G.CircleThickness
+
+local function CursorLock()
+	UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+end
+local function UnLockCursor()
+	HoldingM2 = false Active = false Lock = false 
+	UIS.MouseBehavior = Enum.MouseBehavior.Default
+end
+function FindNearestPlayer()
+	local dist = math.huge
+	local Target = nil
+	for _, v in pairs(Players:GetPlayers()) do
+		if v ~= LocalPlayer and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("Humanoid").Health > 0 and v.Character:FindFirstChild("HumanoidRootPart") and v then
+			local TheirCharacter = v.Character
+			local CharacterRoot, Visible = MyView:WorldToViewportPoint(TheirCharacter[_G.AimPart].Position)
+			if Visible then
+				local RealMag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(CharacterRoot.X, CharacterRoot.Y)).Magnitude
+				if RealMag < dist and RealMag < FOVCircle.Radius then
+					dist = RealMag
+					Target = TheirCharacter
+				end
+			end
+		end
+	end
+	return Target
+end
+
+UIS.InputBegan:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+		HoldingM2 = true
+		Active = true
+		Lock = true
+		if Active then
+        	local The_Enemy = FindNearestPlayer()
+			while HoldingM2 do task.wait(.000001)
+				if Lock and The_Enemy ~= nil then
+					local Future = The_Enemy.HumanoidRootPart.CFrame + (The_Enemy.HumanoidRootPart.Velocity * Epitaph + HeadOffset)
+					MyView.CFrame = CFrame.lookAt(MyView.CFrame.Position, Future.Position)
+					CursorLock()
+				end
+			end
+		end
+	end
+end)
+UIS.InputEnded:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
+		UnLockCursor()
+	end
+end)
+game.StarterGui:SetCore("SendNotification", {Title = "Working.", Text = "Success, Script Loaded.", Duration = 4,})
+   end,
+})
+
+local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
+local MiscSection = MiscTab:CreateSection("Misc")
+
+local Button = MiscTab:CreateButton({
+   Name = "Run infinite yield",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+   end,
+})
+
+local Button = MiscTab:CreateButton({
+   Name = "Made By CQS and AI",
+   Callback = function()
+       
+   end,
+})
