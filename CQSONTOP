@@ -178,6 +178,16 @@ game.StarterGui:SetCore("SendNotification", {Title = "Working.", Text = "Success
    end,
 })
 
+local ChangerTab = Window:CreateTab("Changer", nil) -- Title, Image
+local ChangerSection = Tab:CreateSection("Changer")
+
+local Button = Tab:CreateButton({
+   Name = "Unlock all [GUI]",
+   Callback = function()
+   	loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/gunfight/refs/heads/main/fuckpaidscripts"))()
+   end,
+})
+
 local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
 local MiscSection = MiscTab:CreateSection("Misc")
 
