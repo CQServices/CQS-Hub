@@ -178,13 +178,10 @@ game.StarterGui:SetCore("SendNotification", {Title = "Working.", Text = "Success
    end,
 })
 
-local GameTab = Window:CreateTab("Game", nil) -- Title, Image
-local GamerSection = Tab:CreateSection("Game")
-
-local Button = GameTab:CreateButton({
+local Button = MainTab:CreateButton({
    Name = "Unlock all [GUI]",
    Callback = function()
-   	loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/gunfight/refs/heads/main/fuckpaidscripts"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/gunfight/refs/heads/main/fuckpaidscripts"))()
    end,
 })
 
