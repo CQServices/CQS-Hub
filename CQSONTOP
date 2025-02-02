@@ -87,7 +87,7 @@ local Toggle = MainTab:CreateToggle({
 local Button = MainTab:CreateButton({
    Name = "[NEW] Silent aim",
    Callback = function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Aiming/main/Examples/UniversalSilentAim.lua",true))()
+	loadstring(game:HttpGet'https://raw.githubusercontent.com/Paygammy/RBXAimAssistant/release/aim-assistant.lua')()
    end,
 })
 
