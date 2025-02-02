@@ -85,9 +85,9 @@ local Toggle = MainTab:CreateToggle({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "New Silent aim universal",
+   Name = "[NEW] Silent aim",
    Callback = function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/xUnanimous/es/main/uni-sa0/main.lua"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Aiming/main/Examples/UniversalSilentAim.lua",true))()
    end,
 })
 
