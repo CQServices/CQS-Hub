@@ -52,7 +52,7 @@ local Button = MainTab:CreateButton({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "Extended Hitbox",
+   Name = "Expander Hitbox",
    Callback = function()
 _G.HeadSize = 10
 _G.Disabled = true
