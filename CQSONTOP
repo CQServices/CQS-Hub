@@ -87,12 +87,12 @@ local Toggle = MainTab:CreateToggle({
 local Button = MainTab:CreateButton({
    Name = "New Silent aim universal",
    Callback = function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Aiming/main/Examples/UniversalSilentAim.lua",true))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/xUnanimous/es/main/uni-sa0/main.lua"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "Unlock all [GUI]",
+   Name = "Unlock all [GUI] Need to be fix",
    Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/gunfight/refs/heads/main/fuckpaidscripts"))()
    end,
