@@ -87,37 +87,12 @@ local Toggle = MainTab:CreateToggle({
 local Button = MainTab:CreateButton({
    Name = "New Silent aim universal",
    Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Aiming/main/Examples/UniversalSilentAim.lua",true))()
-end
-
-UIS.InputBegan:Connect(function(Input)
-	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
-		HoldingM2 = true
-		Active = true
-		Lock = true
-		if Active then
-        	local The_Enemy = FindNearestPlayer()
-			while HoldingM2 do task.wait(.000001)
-				if Lock and The_Enemy ~= nil then
-					local Future = The_Enemy.HumanoidRootPart.CFrame + (The_Enemy.HumanoidRootPart.Velocity * Epitaph + HeadOffset)
-					MyView.CFrame = CFrame.lookAt(MyView.CFrame.Position, Future.Position)
-					CursorLock()
-				end
-			end
-		end
-	end
-end)
-UIS.InputEnded:Connect(function(Input)
-	if Input.UserInputType == Enum.UserInputType.MouseButton2 then
-		UnLockCursor()
-	end
-end)
-game.StarterGui:SetCore("SendNotification", {Title = "Working.", Text = "Success, Script Loaded.", Duration = 4,})
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Stefanuk12/Aiming/main/Examples/UniversalSilentAim.lua",true))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "Unlock all [GUI] Need to be fix",
+   Name = "Unlock all [GUI]",
    Callback = function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/h8h88/gunfight/refs/heads/main/fuckpaidscripts"))()
    end,
